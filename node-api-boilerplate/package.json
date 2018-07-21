@@ -41,6 +41,7 @@
     "http-status": "^1.0.1",
     "log4js": "^1.1.1",
     "method-override": "^2.3.7",
+    "moment": "^2.22.2",
     "morgan": "^1.8.1",
     "node-fetch": "^2.1.2",
     "pg": "^6.1.3",
