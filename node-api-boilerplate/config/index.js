@@ -11,7 +11,8 @@ const dbConfig = loadDbConfig();
 const config = Object.assign({
   [ENV]: true,
   env: ENV,
-  db: dbConfig
+  db: dbConfig,
+  
 }, envConfig);
 
 module.exports = config;

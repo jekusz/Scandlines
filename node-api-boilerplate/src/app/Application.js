@@ -13,7 +13,7 @@ class Application {
     if(this.database) {
       await this.database.authenticate();
     }
-
+    
     await this.server.start();
   }
 }

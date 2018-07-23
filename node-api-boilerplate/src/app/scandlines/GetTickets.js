@@ -7,19 +7,23 @@ class GetTickets extends Operation {
 		super();
 	}
 
-	requestData(SUCCESS, ERROR) {
+	requestData(postData, SUCCESS, ERROR) {
 
 		var requestedDateTime = moment();
-		requestedDateTime.add(14, 'd');
-		requestedDateTime.hour(1)
-		requestedDateTime.minute(0)
-		requestedDateTime.seconds(0)
+		requestedDateTime.set('year',postData.year);
+		requestedDateTime.set('month',postData.month-1);
+		requestedDateTime.set('date',postData.day);
+		requestedDateTime.set('hour',postData.hour)
+		requestedDateTime.set('minute',postData.minute)
+		requestedDateTime.set('second',postData.second)
 
-		var time = requestedDateTime.format('YYYY-MM-DD HH:mm:ss');
+		var startDateTime = requestedDateTime.clone();
+		var endDateTime = requestedDateTime.clone().add(1, 'day');
 
 		var aggregatedResponse = [];
 
 		var fetchNow = () => {
+			var scandilinesFormattedTime = requestedDateTime.format('YYYY-MM-DD HH:mm:ss');
 			fetch('https://booking.scandlines.com/api/bookings/getAvailableTickets', {
 				method: 'POST',
 				headers: {
@@ -27,11 +31,11 @@ class GetTickets extends Operation {
 				},
 				body: JSON.stringify({
 					"bookingStarterDto": {
-						"outBoundRouteKey": "DKGED-DERSK",
+						"outBoundRouteKey": "DEPUT-DKROF", //DKROF-DEPUT  DKGED-DERSK
 						"outBoundRouteLocalName": "Gedser-Rostock",
-						"outBoundDateTime": requestedDateTime.format('YYYY-MM-DD HH:mm:ss'),
+						"outBoundDateTime": scandilinesFormattedTime,
 						"homeBoundRouteLocalName": "",
-						"homeBoundRouteKey": "DERSK-DKGED",
+						"homeBoundRouteKey": "DKROF-DEPUT", //DEPUT-DKROF  DERSK-DKGED
 						"homeBoundDateTime": "2018-08-18 02:00:00",
 						"numberOfpersons": 1,
 						"isReturn": false,
@@ -48,27 +52,28 @@ class GetTickets extends Operation {
 			})
 				.then((response) => response.json())
 				.then((json) => {
-					console.log(json)
-					aggregatedResponse.push(json)
-					console.log(aggregatedResponse);
-					this.emit(SUCCESS, aggregatedResponse);
 
-					if (requestedDateTime.isAfter('2018-09-01')) {
+					if (requestedDateTime.isAfter(endDateTime)) {
+						this.emit(SUCCESS, JSON.stringify(aggregatedResponse));
+
 					}
 					else {
-						now.add(8, 'd')
-						//fetchNow();
+						requestedDateTime.add(90, 'minutes')
+						aggregatedResponse.push(json)
+						fetchNow();
 					}
 				});
 		}
+		fetchNow();
+
 	}
 
-	async execute() {
+	async execute(postData) {
 		const { SUCCESS, ERROR } = this.outputs;
 
 		try {
 
-			this.requestData(SUCCESS, ERROR)
+			this.requestData(postData, SUCCESS, ERROR)
 		}
 		catch (error) {
 			this.emit(ERROR, error);

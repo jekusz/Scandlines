@@ -8,7 +8,7 @@ const ScandlinesController = {
 
     router.use(inject('scandlinesSerializer'));
 
-    router.get('/', inject('getTickets'), this.scandlines);
+    router.post('/', inject('getTickets'), this.scandlines);
     router.get('/:id', inject('getUser'), this.dummy);
 
     return router;

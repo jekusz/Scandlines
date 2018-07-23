@@ -12,6 +12,7 @@ class Server {
 
   start() {
     return new Promise((resolve) => {
+      debugger
       const http = this.express
         .listen(this.config.web.port, () => {
           const { port } = http.address();
