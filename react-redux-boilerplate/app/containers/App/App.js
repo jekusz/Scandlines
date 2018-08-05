@@ -16,6 +16,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import './style.scss';
+import ScandlinesPage from 'containers/ScandlinesPage';
 
 const App = () => (
   <div className="app-wrapper">
@@ -29,6 +30,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/features" component={FeaturePage} />
+      <Route path="/scandlines" component={ScandlinesPage} />
       <Route path="" component={NotFoundPage} />
     </Switch>
     <Footer />

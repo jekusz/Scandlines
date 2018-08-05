@@ -18,7 +18,7 @@ class GetTickets extends Operation {
 		requestedDateTime.set('second',postData.second)
 
 		var startDateTime = requestedDateTime.clone();
-		var endDateTime = requestedDateTime.clone().add(1, 'day');
+		var endDateTime = requestedDateTime.clone().add(2, 'hours');
 
 		var aggregatedResponse = [];
 
@@ -31,11 +31,11 @@ class GetTickets extends Operation {
 				},
 				body: JSON.stringify({
 					"bookingStarterDto": {
-						"outBoundRouteKey": "DEPUT-DKROF", //DKROF-DEPUT  DKGED-DERSK
+						"outBoundRouteKey": "DKROF-DEPUT", //DKROF-DEPUT  DKGED-DERSK
 						"outBoundRouteLocalName": "Gedser-Rostock",
 						"outBoundDateTime": scandilinesFormattedTime,
 						"homeBoundRouteLocalName": "",
-						"homeBoundRouteKey": "DKROF-DEPUT", //DEPUT-DKROF  DERSK-DKGED
+						"homeBoundRouteKey": "DEPUT-DKROF", //DEPUT-DKROF  DERSK-DKGED
 						"homeBoundDateTime": "2018-08-18 02:00:00",
 						"numberOfpersons": 1,
 						"isReturn": false,
@@ -54,7 +54,7 @@ class GetTickets extends Operation {
 				.then((json) => {
 
 					if (requestedDateTime.isAfter(endDateTime)) {
-						this.emit(SUCCESS, JSON.stringify(aggregatedResponse));
+						this.emit(SUCCESS, (aggregatedResponse));
 
 					}
 					else {
