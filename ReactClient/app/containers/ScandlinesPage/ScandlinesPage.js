@@ -10,6 +10,8 @@ import { Helmet } from 'react-helmet';
 import ReposList from 'components/ReposList';
 import './style.scss';
 import moment from 'moment'
+import DeparturesTable from './Components/DeparturesTable'
+import DeparturesRequestForm from 'containers/ScandlinesPage/Components/DeparturesRequestForm';
 
 export default class ScandlinesPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -49,6 +51,7 @@ export default class ScandlinesPage extends React.PureComponent { // eslint-disa
 					<title>Home Page</title>
 					<meta name="description" content="A React.js Boilerplate application homepage" />
 				</Helmet>
+				<DeparturesRequestForm />
 				<div className="home-page">
 					<section className="centered">
 						<h2>Start your next react project in seconds</h2>
@@ -56,39 +59,7 @@ export default class ScandlinesPage extends React.PureComponent { // eslint-disa
 					</section>
 					<section>
 						<button onClick={this.props.onLoadDepartures} className='router-link'> yalla </button>
-						<table>
-							<tbody>
-								<tr>
-									<th style={{ width: '200px' }}>DateTime</th>
-									<th style={{ width: '200px' }}>Date</th>
-									<th style={{ width: '200px' }}>Time</th>
-									<th style={{ width: '200px' }}>Weekday</th>
-
-									<th>Price-Euros </th>
-								</tr>
-								{departures && departures.map((departure, index) => {
-									return <tr key={index}>
-										<td>
-											{departure.departureDateTime}
-										</td>
-										<td>
-											{moment(departure.departureDateTime).format('YYYY-MM-DD')}
-										</td>
-										<td>
-											{moment(departure.departureDateTime).format('dddd')}
-										</td>
-										<td>
-											{moment(departure.departureDateTime).format('HH:mm')}
-										</td>
-										<td>
-											{departure.availableTickets[0] && departure.availableTickets.sort((a, b) => a.price > b.price)[0].price < 70 ? "cheap " : ""}
-											{departure.availableTickets[0] && departure.availableTickets.sort((a, b) => a.price > b.price)[0].price}
-
-										</td>
-									</tr>
-								})}
-							</tbody>
-						</table>
+						<DeparturesTable departures={departures} />
 					</section>
 				</div>
 			</article>

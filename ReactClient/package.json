@@ -1,16 +1,12 @@
 {
-  "name": "react-redux-boilerplate",
+  "name": "scandlines-client",
   "version": "1.0.0",
-  "description": "A minimal react-redux boilerplate with all the best practices",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/flexdinesh/react-redux-boilerplate.git"
-  },
+  "description": "A client-app for scandlines ticket aggregation",
   "engines": {
     "npm": ">=3",
     "node": ">=5"
   },
-  "author": "Dinesh Pandiyan",
+  "author": "Janusz Jektvik",
   "license": "MIT",
   "scripts": {
     "prebuild": "npm run build:clean",
@@ -39,6 +35,7 @@
     "history": "4.7.2",
     "hoist-non-react-statics": "2.5.0",
     "immutable": "3.8.2",
+    "informed": "^1.9.0",
     "invariant": "2.2.4",
     "ip": "1.1.5",
     "lodash": "^4.17.10",
@@ -46,12 +43,14 @@
     "moment": "^2.22.2",
     "prop-types": "15.6.1",
     "react": "^16.4.0",
+    "react-day-picker": "^7.1.10",
     "react-dom": "^16.4.0",
     "react-helmet": "5.2.0",
     "react-loadable": "^5.4.0",
     "react-redux": "5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "5.0.0-alpha.6",
+    "react-table": "^6.8.6",
     "redux": "3.7.2",
     "redux-immutable": "4.0.0",
     "redux-saga": "0.16.0",
@@ -68,6 +67,7 @@
     "babel-loader": "7.1.4",
     "babel-plugin-dynamic-import-node": "1.2.0",
     "babel-plugin-react-transform": "3.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
     "babel-plugin-transform-react-inline-elements": "6.22.0",
@@ -75,6 +75,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
+    "@babel/runtime": "<=7.0.0-beta.55",
     "circular-dependency-plugin": "5.0.2",
     "css-loader": "0.28.11",
     "enzyme": "^3.3.0",
