@@ -1,15 +1,14 @@
-
-  {
-    "compilerOptions": {
-      // This must be specified if "paths" is set
-      "baseUrl": ".",
-      // Relative to "baseUrl"
-      "paths": {
-        "*": [
-          "*",
-          "./app/*",
-          "./node_modules/*"
-        ],
-      }
+{
+  "compilerOptions": {
+    // This must be specified if "paths" is set
+    "baseUrl": ".",
+    "jsx": "preserve",
+    // Relative to "baseUrl"
+    "paths": {
+      "*": [
+        "*",
+        "app/*"
+      ]
     }
   }
+}
