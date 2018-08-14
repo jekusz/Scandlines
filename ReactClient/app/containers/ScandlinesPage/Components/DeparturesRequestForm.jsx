@@ -11,15 +11,17 @@ const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 
 	const { value } = fieldState
 	const { setValue, setTouched } = fieldApi
-	const { onChange, onBlur, ...rest } = props
+	const { onChange, onBlur, className, ...rest } = props
 
 	return (
 		<React.Fragment>
 
 			<DayPickerInput
+				inputProps={{ className: "input-field" }}
 				dayPickerProps={{ firstDayOfWeek: 1 }}
 				onDayChange={day => setValue(day)}
 				onBlur={e => setTouched()} />
+
 
 		</React.Fragment>
 	)
@@ -32,28 +34,29 @@ export default class DeparturesRequestForm extends React.PureComponent {
 		return (
 			<Form onSubmit={(values) => console.log(values)} id='scandlines-form'>
 				{({ formState }) => (
-					<div>
-						<label htmlFor="route">First name:</label>
-						<Select field="route" id="route" initialValue='DKROF-DEPUT'>
-							<Option value="DKROF-DEPUT">Rodby-Puttgarden</Option>
-							<Option value="DEPUT-DKROF">Puttgarden-Rodby</Option>
-							<Option value="DKGED-DERSK">Gedser-Rostock</Option>
-							<Option value="DERSK-DKGED">Rostock-Gedser</Option>
-						</Select>
-						<label htmlFor="start-date">Friend 1:</label>
-						<WrappedDayPicker field="start-date" id="start-date" />
-						<label htmlFor="end-date">Start date</label>
-						<Text field="end-date" id="end-date" />
-						<label htmlFor="end-date">End date</label>
-						<Text field="end-date" id="end-date" />
+					<React.Fragment>
+						<label htmlFor="route"><span>Route:</span>
+							<Select className="select-field" field="route" id="route" initialValue='DKROF-DEPUT'>
+								<Option value="DKROF-DEPUT">Rodby-Puttgarden</Option>
+								<Option value="DEPUT-DKROF">Puttgarden-Rodby</Option>
+								<Option value="DKGED-DERSK">Gedser-Rostock</Option>
+								<Option value="DERSK-DKGED">Rostock-Gedser</Option>
+							</Select>
+						</label>
+						<label htmlFor="start-date">
+							<span>From:</span><WrappedDayPicker field="start-date" id="start-date" className='input-field' />
+						</label>
+						<label htmlFor="end-date">
+							<span>To:</span><WrappedDayPicker field="end-date" id="end-date" />
+						</label>
 						<button type="submit">
-							Submit
-					</button>
-						<label>Values:</label>
+							Load
+						</button>
+						{/* <label>Values:</label>
 						<code>{JSON.stringify(formState.values)}</code>
 						<label>Touched:</label>
-						<code>{JSON.stringify(formState.touched)}</code>
-					</div>
+						<code>{JSON.stringify(formState.touched)}</code> */}
+					</React.Fragment>
 				)}
 
 			</Form>

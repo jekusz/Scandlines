@@ -55,11 +55,11 @@ Form {
         height: 100px;
         width: 55%;
     }
-    input[type=submit],
-    input[type=button] {
+    button[type=submit],
+    button[type=button] {
         border: none;
         padding: 8px 15px 8px 15px;
-        background: #FF8500;
+        background: #936631;
         color: #fff;
         box-shadow: 1px 1px 4px #DADADA;
         -moz-box-shadow: 1px 1px 4px #DADADA;
@@ -68,8 +68,8 @@ Form {
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
     }
-    input[type=submit]:hover,
-    input[type=button]:hover {
+    button[type=submit]:hover,
+    button[type=button]:hover {
         background: #EA7B00;
         color: #fff;
     }
