@@ -7,14 +7,16 @@ import {
   makeSelectLoading,
   makeSelectError,
   makeSelectDepartures
-} from 'containers/App/selectors';
-import { loadDepartures } from '../App/actions';
+} from './selectors';
+import { loadDepartures, eraseDepartures } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import ScandlinesPage from './ScandlinesPage';
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadDepartures: () => dispatch(loadDepartures()),
+  onLoadDepartures: (formValues) => {
+    dispatch(eraseDepartures())
+    dispatch(loadDepartures(formValues))}
 });
 
 const mapStateToProps = createStructuredSelector({

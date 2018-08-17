@@ -16,16 +16,12 @@ import {
 	LOAD_REPOS_SUCCESS,
 	LOAD_REPOS,
 	LOAD_REPOS_ERROR,
-	LOAD_DEPARTURES,
-	LOAD_DEPARTURES_SUCCESS,
-	LOAD_DEPARTURES_ERROR
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
 	loading: false,
 	error: false,
-	departures:false,
 	currentUser: false,
 	userData: {
 		repositories: false,
@@ -45,18 +41,6 @@ function appReducer(state = initialState, action) {
 				.set('loading', false)
 				.set('currentUser', action.username);
 		case LOAD_REPOS_ERROR:
-			return state
-				.set('error', action.error)
-				.set('loading', false);
-		case LOAD_DEPARTURES:
-			return state
-				.set('loading', true)
-				.set('error', false)
-		case LOAD_DEPARTURES_SUCCESS:
-			return state
-				.set('departures', action.departures)
-				.set('loading', false)
-		case LOAD_DEPARTURES_ERROR:
 			return state
 				.set('error', action.error)
 				.set('loading', false);

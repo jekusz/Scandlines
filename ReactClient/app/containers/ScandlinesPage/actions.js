@@ -1,9 +1,42 @@
 
-import { CHANGE_USERNAME } from './constants';
+import {
+  LOAD_DEPARTURES,
+  DEPARTURES_BATCH_LOADED,
+  LOAD_DEPARTURES_ERROR,
+  DEPARTURES_ALL_LOADED,
+  ERASE_DEPARTURES
+} from './constants';
 
-export function changeUsername(name) {
+export function loadDepartures(formValues) {
   return {
-    type: CHANGE_USERNAME,
-    name
+    type: LOAD_DEPARTURES,
+    formValues
+  };
+}
+
+export function eraseDepartures() {
+  return {
+    type: ERASE_DEPARTURES
+  };
+}
+
+export function departuresBatchLoaded(departures) {
+  return {
+    type: DEPARTURES_BATCH_LOADED,
+    departures
+  };
+}
+
+export function allDeparturesLoaded(departures) {
+  return {
+    type: DEPARTURES_ALL_LOADED,
+    departures
+  };
+}
+
+export function departuresLoadingError(error) {
+  return {
+    type: LOAD_DEPARTURES_ERROR,
+    error,
   };
 }

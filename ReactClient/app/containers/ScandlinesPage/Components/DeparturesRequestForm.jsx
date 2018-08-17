@@ -15,24 +15,35 @@ const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 
 	return (
 		<React.Fragment>
-
 			<DayPickerInput
 				inputProps={{ className: "input-field" }}
-				dayPickerProps={{ firstDayOfWeek: 1 }}
+				dayPickerProps={{
+					firstDayOfWeek: 1,
+					disabledDays: { before: new Date() }
+				}}
 				onDayChange={day => setValue(day)}
 				onBlur={e => setTouched()} />
-
-
 		</React.Fragment>
 	)
 });
 
+const validateFrom = (value, values) => {
+	return !values || moment(values.fromDate).isAfter(moment(values.toDate)) ? 'To date must be after From date' : null;
+}
+
+const validateTo = (value, values) => {
+	return null
+}
+
+const requestDepartures = (values) => {
+
+}
 
 export default class DeparturesRequestForm extends React.PureComponent {
 
 	render() {
 		return (
-			<Form onSubmit={(values) => console.log(values)} id='scandlines-form'>
+			<Form onSubmit={(formValues) => this.props.onLoadDepartures(formValues)} id='scandlines-form'>
 				{({ formState }) => (
 					<React.Fragment>
 						<label htmlFor="route"><span>Route:</span>
@@ -43,22 +54,31 @@ export default class DeparturesRequestForm extends React.PureComponent {
 								<Option value="DERSK-DKGED">Rostock-Gedser</Option>
 							</Select>
 						</label>
-						<label htmlFor="start-date">
-							<span>From:</span><WrappedDayPicker field="start-date" id="start-date" className='input-field' />
+						<label htmlFor="fromDate">
+							<span>From:</span><WrappedDayPicker validate={validateFrom} field="fromDate" id="fromDate" className='input-field' />
 						</label>
-						<label htmlFor="end-date">
-							<span>To:</span><WrappedDayPicker field="end-date" id="end-date" />
+						<label htmlFor="toDate">
+							<span>To:</span><WrappedDayPicker validate={validateTo} field="toDate" id="toDate" />
 						</label>
 						<button type="submit">
 							Load
 						</button>
-						{/* <label>Values:</label>
-						<code>{JSON.stringify(formState.values)}</code>
-						<label>Touched:</label>
-						<code>{JSON.stringify(formState.touched)}</code> */}
+						{Object.keys(formState.errors).length !== 0 && 
+						<React.Fragment>
+							{Object.values(formState.errors).map((msg, id) => {
+								console.log(formState.errors);
+								return (
+									<div id={id} className="error-msg">
+										<i className="fa fa-times-circle"></i>
+										{msg}
+									</div>
+								)
+							})
+							}
+						</React.Fragment>
+						}
 					</React.Fragment>
 				)}
-
 			</Form>
 		);
 	}

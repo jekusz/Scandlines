@@ -1,44 +1,54 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_REPOS, LOAD_DEPARTURES } from 'containers/App/constants';
-import { departuresLoaded, departuresLoadingError } from 'containers/App/actions';
+import { LOAD_DEPARTURES } from './constants';
+import { departuresBatchLoaded, departuresLoadingError } from './actions';
 import { createSelector } from 'reselect';
 
 import request from 'utils/request';
-import { makeSelectRoute } from 'containers/ScandlinesPage/selectors';
-import { makeSelectDepartures } from 'containers/App/selectors';
+import { makeSelectRoute } from './selectors';
+import { makeSelectDepartures } from './selectors';
+import moment from 'moment'
 
-export function* getDepartures() {
+export function* getDepartures(action) {
 
+	const formValues = action.formValues
+	const fromDate = formValues.fromDate
+	const toDate = formValues.toDate
 
 	const requestURL = `http://localhost:3500/api/scandlines`;
 
 	try {
-		for (let day = 14; day < 30; day++) {
 
+		let date = moment(fromDate)
+		while (moment(toDate).isAfter(date)) {
 			var options = {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					'year': 2018,
-					'month': 8,
-					'day': day,
-					'hour': 1,
-					'minute': 0,
-					'second': 0
+					'year': date.toObject().years,
+					'month': date.toObject().months,
+					'day': date.toObject().date,
+					'hour': date.toObject().hours,
+					'minute': date.toObject().minutes,
+					'second': date.toObject().seconds
 				})
 			}
-
-			let alreadyLoadedDepartures = yield select(makeSelectDepartures())
+			const alreadyLoadedDepartures = yield select(makeSelectDepartures())
 			const scandlinesResponse = yield call(request, requestURL, options);
 			const aggregatedDepartures = scandlinesResponse.map(response => response.outboundDepartures)
 			const departures = aggregatedDepartures.flatMap(c => c)
+			const sortedDepartures = departures.sort((a,b) => moment(a.departureDateTime).isAfter(moment(b.departureDateTime)))
+			const lastDeparture = sortedDepartures[sortedDepartures.length - 1]
+			const lastDepartureDateTime = moment(lastDeparture.departureDateTime)
 
 			const allDepartures = [...alreadyLoadedDepartures, ...departures]
+			yield put(departuresBatchLoaded(allDepartures))
 
-			yield put(departuresLoaded(allDepartures))
+			date = moment(lastDepartureDateTime).add(1,'minutes')
 		}
+
+		yield put(departuresBatchLoaded(allDepartures))
 
 	} catch (err) {
 		yield put(departuresLoadingError(err));

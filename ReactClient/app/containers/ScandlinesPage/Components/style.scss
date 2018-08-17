@@ -1,3 +1,5 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+
 Form {
     max-width: 500px;
     padding: 20px 12px 10px 20px;
@@ -59,7 +61,7 @@ Form {
     button[type=button] {
         border: none;
         padding: 8px 15px 8px 15px;
-        background: #936631;
+        background: #41ADDD;
         color: #fff;
         box-shadow: 1px 1px 4px #DADADA;
         -moz-box-shadow: 1px 1px 4px #DADADA;
@@ -72,5 +74,29 @@ Form {
     button[type=button]:hover {
         background: #EA7B00;
         color: #fff;
+    }
+    .info-msg,
+    .success-msg,
+    .warning-msg,
+    .error-msg {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 3px 3px 3px 3px;
+    }
+    .info-msg {
+        color: #059;
+        background-color: #BEF;
+    }
+    .success-msg {
+        color: #270;
+        background-color: #DFF2BF;
+    }
+    .warning-msg {
+        color: #9F6000;
+        background-color: #FEEFB3;
+    }
+    .error-msg {
+        color: #D8000C;
+        background-color: #FFBABA;
     }
 }

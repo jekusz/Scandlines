@@ -11,14 +11,11 @@ class GetTickets extends Operation {
 
 		var requestedDateTime = moment();
 		requestedDateTime.set('year',postData.year);
-		requestedDateTime.set('month',postData.month-1);
+		requestedDateTime.set('month',postData.month);
 		requestedDateTime.set('date',postData.day);
 		requestedDateTime.set('hour',postData.hour)
 		requestedDateTime.set('minute',postData.minute)
 		requestedDateTime.set('second',postData.second)
-
-		var startDateTime = requestedDateTime.clone();
-		var endDateTime = requestedDateTime.clone().add(2, 'hours');
 
 		var aggregatedResponse = [];
 
@@ -52,18 +49,11 @@ class GetTickets extends Operation {
 			})
 				.then((response) => response.json())
 				.then((json) => {
-
-					if (requestedDateTime.isAfter(endDateTime)) {
-						this.emit(SUCCESS, (aggregatedResponse));
-
-					}
-					else {
-						requestedDateTime.add(90, 'minutes')
 						aggregatedResponse.push(json)
-						fetchNow();
-					}
-				});
+						this.emit(SUCCESS, (aggregatedResponse));
+					})
 		}
+
 		fetchNow();
 
 	}
@@ -72,7 +62,6 @@ class GetTickets extends Operation {
 		const { SUCCESS, ERROR } = this.outputs;
 
 		try {
-
 			this.requestData(postData, SUCCESS, ERROR)
 		}
 		catch (error) {

@@ -36,8 +36,6 @@ export default class ScandlinesPage extends React.PureComponent { // eslint-disa
 			return check ? 1 : !check ? -1 : 0
 		})
 
-		console.log(departures);
-
 		const { loading, error, repos } = this.props;
 		const reposListProps = {
 			loading,
@@ -51,15 +49,19 @@ export default class ScandlinesPage extends React.PureComponent { // eslint-disa
 					<title>Home Page</title>
 					<meta name="description" content="A React.js Boilerplate application homepage" />
 				</Helmet>
-				<DeparturesRequestForm />
+				<DeparturesRequestForm
+					onLoadDepartures={this.props.onLoadDepartures}
+				/>
 				<div className="home-page">
 					<section className="centered">
-						<h2>Start your next react project in seconds</h2>
-						<p>A minimal <i>React-Redux</i> boilerplate with all the best practices</p>
+						<h2>Get departures' overview in seconds</h2>
+						<p>A minimal <i>web-based</i> departures aggregegator</p>
 					</section>
 					<section>
-						<button onClick={this.props.onLoadDepartures} className='router-link'> yalla </button>
-						<DeparturesTable departures={departures} />
+						<DeparturesTable 
+						departures={departures}
+						loading= {this.props.loading}
+						/>
 					</section>
 				</div>
 			</article>

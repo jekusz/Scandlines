@@ -1,26 +1,42 @@
-/*
- * HomeReducer
- *
- * The reducer takes care of our data. Using actions, we can change our
- * application state.
- * To add a new action, add it to the switch statement in the reducer function
- *
- * Example:
- * case YOUR_ACTION_CONSTANT:
- *   return state.set('yourStateVariable', true);
- */
 import { fromJS } from 'immutable';
+
+import {
+	LOAD_DEPARTURES,
+	DEPARTURES_BATCH_LOADED,
+	LOAD_DEPARTURES_ERROR,
+	DEPARTURES_ALL_LOADED,
+	ERASE_DEPARTURES
+} from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  departures: []
+	loading: false,
+	error: false,
+	departures: false
 });
 
-function scandilinesReducer(state = initialState, action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
+function scandlinesReducer(state = initialState, action) {
+	switch (action.type) {
+		case LOAD_DEPARTURES:
+			return state
+				.set('loading', true)
+				.set('error', false)
+		case DEPARTURES_BATCH_LOADED:
+			return state
+				.set('departures', action.departures)
+		case DEPARTURES_ALL_LOADED:
+			return state
+				.set('loading', false);
+		case LOAD_DEPARTURES_ERROR:
+			return state
+				.set('error', action.error)
+				.set('loading', false);
+		case ERASE_DEPARTURES:
+			return state
+				.set('departures', [])
+		default:
+			return state;
+	}
 }
 
-export default scandilinesReducer;
+export default scandlinesReducer;

@@ -11,9 +11,6 @@ import {
   LOAD_REPOS,
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS_ERROR,
-  LOAD_DEPARTURES,
-  LOAD_DEPARTURES_SUCCESS,
-  LOAD_DEPARTURES_ERROR
 } from './constants';
 
 export function loadRepos() {
@@ -37,22 +34,3 @@ export function repoLoadingError(error) {
   };
 }
 
-export function loadDepartures() {
-  return {
-    type: LOAD_DEPARTURES,
-  };
-}
-
-export function departuresLoaded(departures) {
-  return {
-    type: LOAD_DEPARTURES_SUCCESS,
-    departures,
-  };
-}
-
-export function departuresLoadingError(error) {
-  return {
-    type: LOAD_DEPARTURES_ERROR,
-    error,
-  };
-}

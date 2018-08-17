@@ -36,20 +36,20 @@ const ScandlinesController = {
     getUser.execute(Number(req.params.id));
   },
 
-  scandlines(req, res, next) {
-    const { getTickets, scandlinesSerializer } = req;
+  scandlines(request, respond, next) {
+    const { getTickets, scandlinesSerializer } = request;
     const { SUCCESS, ERROR, VALIDATION_ERROR } = getTickets.outputs;
 
     getTickets
       .on(SUCCESS, (response) => {
-        res
+        respond
           .status(Status.OK)
           .json(response)
           //.json(scandlinesSerializer.serialize(tickets));
       })
       .on(ERROR, next);
 
-    getTickets.execute(req.body);
+    getTickets.execute(request.body);
   },
 };
 
