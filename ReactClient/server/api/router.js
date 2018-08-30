@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const methodOverride = require('method-override');
-const controller = require('./utils/createControllerRoutes');
+const controller = require('./utlis/createControllerRoutes');
 
 module.exports = ({ containerMiddleware, loggerMiddleware, errorHandler, swaggerMiddleware }) => {
   const router = Router();

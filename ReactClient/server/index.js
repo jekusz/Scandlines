@@ -9,9 +9,9 @@ const setup = require('./middlewares/frontendMiddleware');
 const { resolve } = require('path');
 const router = require('./api/router');
 
-const loggerMiddleware = require('./routerMiddlewares/logging/loggerMiddleware');
-const errorHandler = require('./routerMiddlewares/errors/errorHandler');
-const swaggerMiddleware = require('./routerMiddlewares/swagger/swaggerMiddleware');
+const loggerMiddleware = require('./api/routerMiddlewares/logging/loggerMiddleware');
+const errorHandler = require('./api/routerMiddlewares/errors/errorHandler');
+const swaggerMiddleware = require('./api/routerMiddlewares/swagger/swaggerMiddleware');
 
 const expressServer = express();
 

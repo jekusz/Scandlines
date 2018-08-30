@@ -1,5 +1,5 @@
 const morgan = require('morgan');
-const LoggerStreamAdapter = require('src/infra/logging/LoggerStreamAdapter');
+const LoggerStreamAdapter = require('../../../infrastructure/LoggerStreamAdapter.js');
 
 module.exports = ({ logger }) => {
   return morgan('dev', {

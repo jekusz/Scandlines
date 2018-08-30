@@ -1,20 +1,21 @@
-const expressServer = require('express');
+const express = require('express');
 
 class Server {
   constructor({ config, router, logger }) {
     this.config = config;
     this.logger = logger;
-    this.expressServer = expressServer();
+    this.express = express();
 
-    this.expressServer.disable('x-powered-by');
-    this.expressServer.use(router);
+    this.express.disable('x-powered-by');
+    this.express.use(router);
   }
 
   start() {
     return new Promise((resolve) => {
-      const server = this.expressServer
+      debugger
+      const http = this.express
         .listen(this.config.web.port, () => {
-          const { port } = server.address();
+          const { port } = http.address();
           this.logger.info(`[p ${process.pid}] Listening at port ${port}`);
           resolve();
         });
