@@ -7,21 +7,23 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch via NPM",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run-script",
-                "dev"
-            ],
-            "port": 9229
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/index.js",
+            "args": [
+                "cross-env NODE_PATH=. NODE_ENV=development nodemon --inspect"
+            ]
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Node: Nodemon",
-            "program": "${command:PickProcess}",
-            "restart": true,
-            "protocol": "inspector",
+            "name": "Launch via NPM",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "dev",
+                "--inspect"
+            ],
+            "port": 9229
         },
 
 

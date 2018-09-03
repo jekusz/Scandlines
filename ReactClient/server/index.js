@@ -18,7 +18,9 @@ const expressServer = express();
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // expressServer.use('/api', myApi);
 
-expressServer.use(router);
+expressRouter = router()
+
+expressServer.use('/api', expressRouter);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(expressServer, {
@@ -37,4 +39,5 @@ expressServer.listen(port, host, (err) => {
     return logger.error(err.message);
   }
   logger.appStarted(port, prettyHost);
+  
 });

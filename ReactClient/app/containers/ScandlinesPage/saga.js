@@ -14,7 +14,7 @@ export function* getDepartures(action) {
 	const fromDate = formValues.fromDate
 	const toDate = formValues.toDate
 
-	const requestURL = `http://localhost:3500/api/scandlines`;
+	const requestURL = `/api/scandlines`;
 
 	try {
 

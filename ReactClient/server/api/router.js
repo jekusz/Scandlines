@@ -5,28 +5,29 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const methodOverride = require('method-override');
 const controller = require('./utlis/createControllerRoutes');
+const swaggerMiddleware = require('./routerMiddlewares/swagger/swaggerMiddleware')
+const errorHandler = require('./routerMiddlewares/errors/errorHandler');
+const loggerMiddleware = require('./routerMiddlewares/logging/loggerMiddleware');
 
-module.exports = ({ containerMiddleware, loggerMiddleware, errorHandler, swaggerMiddleware }) => {
+module.exports = () => {
   const router = Router();
 
   /* istanbul ignore if */
-  if(process.env.NODE_ENV === 'development') {
-    router.use(statusMonitor());
-  }
+  // if(process.env.NODE_ENV === 'development') {
+  //   router.use(statusMonitor());
+  // }
 
   /* istanbul ignore if */
-  if(process.env.NODE_ENV !== 'test') {
-    router.use(loggerMiddleware);
-  }
+  // if(process.env.NODE_ENV !== 'test') {
+  //   router.use(loggerMiddleware);
+  // }
 
-  const apiRouter = Router();
-
-  apiRouter
+  router
     .use(methodOverride('X-HTTP-Method-Override'))
     .use(cors())
     .use(bodyParser.json())
     .use(compression())
-    .use(containerMiddleware)
+    // .use(containerMiddleware)
     .use('/docs', swaggerMiddleware);
 
   /*
@@ -38,10 +39,7 @@ module.exports = ({ containerMiddleware, loggerMiddleware, errorHandler, swagger
    * The `controllerPath` is relative to the `interfaces/http` folder
    */
 
-  apiRouter.use('/users', controller('user/UsersController'));
-  apiRouter.use('/scandlines', controller('scandlines/ScandlinesController'));
-
-  router.use('/api', apiRouter);
+  router.use('/scandlines', controller('scandlines/ScandlinesController'));
 
   router.use(errorHandler);
 

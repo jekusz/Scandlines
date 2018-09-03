@@ -7,19 +7,22 @@ class Server {
     this.express = express();
 
     this.express.disable('x-powered-by');
-    this.express.use(router);
+    this.express.use('/myApi',router);
   }
 
   start() {
     return new Promise((resolve) => {
-      debugger
+
+
       const http = this.express
-        .listen(this.config.web.port, () => {
+        .listen( this.config.web.port, () => {
           const { port } = http.address();
           this.logger.info(`[p ${process.pid}] Listening at port ${port}`);
           resolve();
         });
     });
+
+
   }
 }
 

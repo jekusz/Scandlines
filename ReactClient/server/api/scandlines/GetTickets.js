@@ -1,4 +1,4 @@
-const Operation = require('src/app/Operation');
+const Operation = require('../Operation');
 const fetch = require('node-fetch');
 var moment = require('moment');
 

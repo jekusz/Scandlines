@@ -1,14 +1,13 @@
 const { Router } = require('express');
 const { inject } = require('awilix-express');
 const Status = require('http-status');
+const getTickets = require('../../../../src/app/scandlines/getTickets')
 
 const ScandlinesController = {
   get router() {
     const router = Router();
 
-    router.use(inject('scandlinesSerializer'));
-
-    router.post('/', inject('getTickets'), this.scandlines);
+    router.post('/', this.scandlines);
     router.get('/:id', inject('getUser'), this.dummy);
 
     return router;
@@ -37,8 +36,8 @@ const ScandlinesController = {
   },
 
   scandlines(request, respond, next) {
-    const { getTickets, scandlinesSerializer } = request;
-    const { SUCCESS, ERROR, VALIDATION_ERROR } = getTickets.outputs;
+    debugger;
+    const { SUCCESS, ERROR, VALIDATION_ERROR } = getTickets;
 
     getTickets
       .on(SUCCESS, (response) => {

@@ -22,6 +22,6 @@ const createOutputs = (outputsArray) => {
     obj[output] = output;
     return obj;
   }, Object.create(null));
-};
+}
 
 module.exports = Operation;

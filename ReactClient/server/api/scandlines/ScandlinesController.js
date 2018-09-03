@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { inject } = require('awilix-express');
 const Status = require('http-status');
-const getTickets = require('./GetTickets')
+const GetTickets = require('./GetTickets')
 
 const ScandlinesController = {
   get router() {
@@ -37,7 +37,8 @@ const ScandlinesController = {
   },
 
   scandlines(request, respond, next) {
-    //const { getTickets, scandlinesSerializer } = request;
+    const getTickets = new GetTickets({});
+    // const { getTickets, scandlinesSerializer } = request;
     const { SUCCESS, ERROR, VALIDATION_ERROR } = getTickets.outputs;
 
     getTickets
