@@ -5,7 +5,7 @@ const logger = require('./util//logger');
 
 const argv = require('./util/argv');
 const port = require('./util//port');
-const setup = require('./middlewares/frontendMiddleware');
+const frontEndSetup = require('./middlewares/frontendMiddleware');
 const { resolve } = require('path');
 const router = require('./api/router');
 
@@ -23,7 +23,7 @@ expressRouter = router()
 expressServer.use('/api', expressRouter);
 
 // In production we need to pass these values in instead of relying on webpack
-setup(expressServer, {
+frontEndSetup(expressServer, {
   outputPath: resolve(process.cwd(), 'build'),
   publicPath: '/',
 });
