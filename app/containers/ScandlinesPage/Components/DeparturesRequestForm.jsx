@@ -11,7 +11,8 @@ const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 
 	const { value } = fieldState
 	const { setValue, setTouched } = fieldApi
-	const { onChange, onBlur, className, ...rest } = props
+	const { from, to, onChange, onBlur, className, ...rest } = props
+
 
 	return (
 		<React.Fragment>
@@ -19,7 +20,10 @@ const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 				inputProps={{ className: "input-field" }}
 				dayPickerProps={{
 					firstDayOfWeek: 1,
-					disabledDays: { before: new Date() }
+					disabledDays: { 
+						before: (from || new Date()) ,
+						after: to
+					}
 				}}
 				onDayChange={day => setValue(day)}
 				onBlur={e => setTouched()} />
@@ -33,10 +37,6 @@ const validateFrom = (value, values) => {
 
 const validateTo = (value, values) => {
 	return null
-}
-
-const requestDepartures = (values) => {
-
 }
 
 export default class DeparturesRequestForm extends React.PureComponent {
@@ -55,10 +55,10 @@ export default class DeparturesRequestForm extends React.PureComponent {
 							</Select>
 						</label>
 						<label htmlFor="fromDate">
-							<span>From:</span><WrappedDayPicker validate={validateFrom} field="fromDate" id="fromDate" className='input-field' />
+							<span>From:</span><WrappedDayPicker validate={validateFrom} to={formState.values.toDate} field="fromDate" id="fromDate" className='input-field' />
 						</label>
 						<label htmlFor="toDate">
-							<span>To:</span><WrappedDayPicker validate={validateTo} field="toDate" id="toDate" />
+							<span>To:</span><WrappedDayPicker validate={validateTo} from={formState.values.fromDate} field="toDate" id="toDate" />
 						</label>
 						<button type="submit">
 							Load
