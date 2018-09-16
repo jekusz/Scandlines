@@ -13,7 +13,7 @@ import moment from 'moment'
 import DeparturesTable from './Components/DeparturesTable'
 import DeparturesRequestForm from 'containers/ScandlinesPage/Components/DeparturesRequestForm';
 
-export default class ScandlinesPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class ScandlinesPage extends React.PureComponent {
 
 	componentDidMount() {
 		if (this.props.username && this.props.username.trim().length > 0) {

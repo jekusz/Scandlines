@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const { inject } = require('awilix-express');
 const Status = require('http-status');
 const GetTickets = require('./GetTickets')
 
@@ -7,7 +6,6 @@ const ScandlinesController = {
   get router() {
     const router = Router();
 
-//    router.post('/', inject('getTickets'), this.scandlines);
     router.post('/', this.scandlines);
     
 

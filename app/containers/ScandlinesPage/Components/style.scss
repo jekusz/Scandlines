@@ -16,20 +16,32 @@ Form {
         display: block;
         margin: 0px 0px 15px 0px;
     }
-    label>span {
+
+    .input-field.day-picker {
+        width : 100px;
+    }
+
+    label>span:first-child {
         width: 100px;
         font-weight: bold;
         float: left;
         padding-top: 8px;
         padding-right: 5px;
     }
+    label>span:not(:first-child) {
+        display: inline-block;
+        font-size: 1.3em;
+        padding-left: 5px;
+    }
+    label>div {
+        box-sizing: content-box
+    }
+
     span.required {
         color: red;
     }
     input.input-field,
-    .select-field {
-        width: 48%;
-    }
+
     input.input-field,
     .tel-number-field,
     .textarea-field,

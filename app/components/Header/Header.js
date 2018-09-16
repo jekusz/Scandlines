@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Banner from './images/LOGO.jpg';
 import './style.scss';
 
-class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class Header extends React.Component {
 	render() {
 		return (
 			<div className="header">

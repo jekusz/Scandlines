@@ -11,7 +11,7 @@ import ReposList from 'components/ReposList';
 import './style.scss';
 import moment from 'moment'
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class HomePage extends React.PureComponent { 
 	/**
 	 * when initial state username is not null, submit the form to load repos
 	 */
