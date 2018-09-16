@@ -13,14 +13,15 @@ const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 	const { setValue, setTouched } = fieldApi
 	const { from, to, onChange, onBlur, className, ...rest } = props
 
+
 	return (
 		<React.Fragment>
 			<DayPickerInput
-				inputProps={{ className: className }}
+				inputProps={{ className: "input-field" }}
 				dayPickerProps={{
 					firstDayOfWeek: 1,
-					disabledDays: {
-						before: (from || new Date()),
+					disabledDays: { 
+						before: (from || new Date()) ,
 						after: to
 					}
 				}}
@@ -54,29 +55,27 @@ export default class DeparturesRequestForm extends React.PureComponent {
 							</Select>
 						</label>
 						<label htmlFor="fromDate">
-							<span>From:</span><WrappedDayPicker validate={validateFrom} to={formState.values.toDate} field="fromDate" id="fromDate" className='input-field day-picker' />
-							<span> 12:00</span>
+							<span>From:</span><WrappedDayPicker validate={validateFrom} to={formState.values.toDate} field="fromDate" id="fromDate" className='input-field' />
 						</label>
 						<label htmlFor="toDate">
-							<span>To:</span><WrappedDayPicker validate={validateTo} from={formState.values.fromDate} field="toDate" id="toDate" className='input-field day-picker' />
-							<span> 12:00</span>
+							<span>To:</span><WrappedDayPicker validate={validateTo} from={formState.values.fromDate} field="toDate" id="toDate" />
 						</label>
 						<button type="submit">
 							Load
 						</button>
-						{Object.keys(formState.errors).length !== 0 &&
-							<React.Fragment>
-								{Object.values(formState.errors).map((msg, id) => {
-									console.log(formState.errors);
-									return (
-										<div id={id} className="error-msg">
-											<i className="fa fa-times-circle"></i>
-											{msg}
-										</div>
-									)
-								})
-								}
-							</React.Fragment>
+						{Object.keys(formState.errors).length !== 0 && 
+						<React.Fragment>
+							{Object.values(formState.errors).map((msg, id) => {
+								console.log(formState.errors);
+								return (
+									<div id={id} className="error-msg">
+										<i className="fa fa-times-circle"></i>
+										{msg}
+									</div>
+								)
+							})
+							}
+						</React.Fragment>
 						}
 					</React.Fragment>
 				)}
