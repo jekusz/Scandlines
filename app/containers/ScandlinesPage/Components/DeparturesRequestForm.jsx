@@ -55,10 +55,12 @@ export default class DeparturesRequestForm extends React.PureComponent {
 							</Select>
 						</label>
 						<label htmlFor="fromDate">
-							<span>From:</span><WrappedDayPicker validate={validateFrom} to={formState.values.toDate} field="fromDate" id="fromDate" className='input-field' />
+							<span>From:</span><WrappedDayPicker validate={validateFrom} to={formState.values.toDate} field="fromDate" id="fromDate" />
+							<span> 12:00</span>
 						</label>
 						<label htmlFor="toDate">
 							<span>To:</span><WrappedDayPicker validate={validateTo} from={formState.values.fromDate} field="toDate" id="toDate" />
+							<span> 12:00</span>
 						</label>
 						<button type="submit">
 							Load
