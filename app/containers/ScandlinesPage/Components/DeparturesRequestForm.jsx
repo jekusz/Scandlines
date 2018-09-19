@@ -65,7 +65,7 @@ export default class DeparturesRequestForm extends React.PureComponent {
 						<button type="submit">
 							Load
 						</button>
-						{Object.keys(formState.errors).length !== 0 && 
+						{Object.keys(formState.errors).length !== 0 &&
 						<React.Fragment>
 							{Object.values(formState.errors).map((msg, id) => {
 								console.log(formState.errors);

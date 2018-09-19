@@ -13,6 +13,7 @@ export function* getDepartures(action) {
 	const formValues = action.formValues
 	const fromDate = formValues.fromDate
 	const toDate = formValues.toDate
+	const route = formValues.route
 
 	const requestURL = `/api/scandlines`;
 
@@ -26,6 +27,7 @@ export function* getDepartures(action) {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
+					'route': route,
 					'year': date.toObject().years,
 					'month': date.toObject().months,
 					'day': date.toObject().date,
@@ -34,15 +36,18 @@ export function* getDepartures(action) {
 					'second': date.toObject().seconds
 				})
 			}
-			const alreadyLoadedDepartures = yield select(makeSelectDepartures())
+
 			const scandlinesResponse = yield call(request, requestURL, options);
-			const aggregatedDepartures = scandlinesResponse.map(response => response.outboundDepartures)
-			const departures = aggregatedDepartures.flatMap(c => c)
+			const departuresTree = scandlinesResponse.map(response => response.outboundDepartures)
+			const departures = departuresTree.flatMap(c => c)
 			const sortedDepartures = departures.sort((a,b) => moment(a.departureDateTime).isAfter(moment(b.departureDateTime)))
+
 			const lastDeparture = sortedDepartures[sortedDepartures.length - 1]
 			const lastDepartureDateTime = moment(lastDeparture.departureDateTime)
 
+			const alreadyLoadedDepartures = yield select(makeSelectDepartures())
 			const allDepartures = [...alreadyLoadedDepartures, ...departures]
+			allDepartures.forEach(departure => { departure.route = route });
 			yield put(departuresBatchLoaded(allDepartures))
 
 			date = moment(lastDepartureDateTime).add(1,'minutes')

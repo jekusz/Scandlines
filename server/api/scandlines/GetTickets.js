@@ -28,12 +28,12 @@ class GetTickets extends Operation {
 				},
 				body: JSON.stringify({
 					"bookingStarterDto": {
-						"outBoundRouteKey": "DKROF-DEPUT", //DKROF-DEPUT  DKGED-DERSK
+						"outBoundRouteKey": postData.route, //DKROF-DEPUT  DKGED-DERSK
 						"outBoundRouteLocalName": "Gedser-Rostock",
 						"outBoundDateTime": scandilinesFormattedTime,
 						"homeBoundRouteLocalName": "",
-						"homeBoundRouteKey": "DEPUT-DKROF", //DEPUT-DKROF  DERSK-DKGED
-						"homeBoundDateTime": "2018-08-18 02:00:00",
+						"homeBoundRouteKey": postData.route, //DEPUT-DKROF  DERSK-DKGED
+						"homeBoundDateTime": scandilinesFormattedTime,
 						"numberOfpersons": 1,
 						"isReturn": false,
 						"vehicleKey": "CAR",
