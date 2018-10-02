@@ -102,7 +102,7 @@ export default class DeparturesTable extends React.PureComponent {
 								{
 									Header: "Date",
 									id: 'data',
-									accessor: d => moment(d.departureDateTime).format('YYYY-MM-DD')
+									accessor: d => moment(d.departureDateTime).format('DD-MMM-YYYY')
 								},
 								{
 									Header: 'Time',

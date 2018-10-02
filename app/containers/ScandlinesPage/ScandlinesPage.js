@@ -46,7 +46,7 @@ export default class ScandlinesPage extends React.PureComponent {
 		return (
 			<article>
 				<Helmet>
-					<title>Home Page</title>
+					<title>Scandegrator</title>
 					<meta name="description" content="A React.js Boilerplate application homepage" />
 				</Helmet>
 				<DeparturesRequestForm
@@ -54,8 +54,8 @@ export default class ScandlinesPage extends React.PureComponent {
 				/>
 				<div className="home-page">
 					<section className="centered">
-						<h2>Get departures' overview in seconds</h2>
-						<p>A minimal <i>web-based</i> departures aggregegator</p>
+						<h2>Find you cheapest Scandlines tickets in seconds</h2>
+						<p>A minimal <i>web-based</i> cheap ticket aggregegator</p>
 					</section>
 					<section>
 						<DeparturesTable 
