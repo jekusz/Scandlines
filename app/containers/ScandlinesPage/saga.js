@@ -43,7 +43,7 @@ export function* getDepartures(action) {
 			const sortedDepartures = departures.sort((a,b) => moment(a.departureDateTime).isAfter(moment(b.departureDateTime)))
 
 			const lastDeparture = sortedDepartures[sortedDepartures.length - 1]
-			const lastDepartureDateTime = moment(lastDeparture.departureDateTime)
+			const lastDepartureDateTime = sortedDepartures.length > 0 ? moment(lastDeparture.departureDateTime) : moment(lastDepartureDateTime).add(1, 'hours');
 
 			const alreadyLoadedDepartures = yield select(makeSelectDepartures())
 			const allDepartures = [...alreadyLoadedDepartures, ...departures]
