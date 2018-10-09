@@ -18,7 +18,7 @@ const expressServer = express();
 
 setInterval(function () {
 	try {
-		http.get("https://scandegrator.herokuapp.com/");
+		http.get("http://scandegrator.herokuapp.com/");
 	}
 	catch (err) {
 		console.log(err);
