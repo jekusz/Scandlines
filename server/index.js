@@ -16,7 +16,7 @@ const expressServer = express();
 
 //heroku prevent sleep
 setInterval(function() {
-  http.get("http://scandlines.herokuapp.com");
+  http.get("https://scandegrator.herokuapp.com/");
 }, 300000); // every 5 minutes (300000)
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
