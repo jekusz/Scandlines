@@ -15,8 +15,15 @@ const swaggerMiddleware = require('./api/routerMiddlewares/swagger/swaggerMiddle
 const expressServer = express();
 
 //heroku prevent sleep
-setInterval(function() {
-  http.get("https://scandegrator.herokuapp.com/");
+
+setInterval(function () {
+	try {
+		http.get("https://scandegrator.herokuapp.com/");
+	}
+	catch (err) {
+		console.log(err);
+	}
+
 }, 300000); // every 5 minutes (300000)
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
@@ -28,8 +35,8 @@ expressServer.use('/api', expressRouter);
 
 // In production we need to pass these values in instead of relying on webpack
 frontEndSetup(expressServer, {
-  outputPath: resolve(process.cwd(), 'build'),
-  publicPath: '/',
+	outputPath: resolve(process.cwd(), 'build'),
+	publicPath: '/',
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided
@@ -39,9 +46,9 @@ const prettyHost = customHost || 'localhost';
 
 // Start your app.
 expressServer.listen(port, host, (err) => {
-  if (err) {
-    return logger.error(err.message);
-  }
-  logger.appStarted(port, prettyHost);
-  
+	if (err) {
+		return logger.error(err.message);
+	}
+	logger.appStarted(port, prettyHost);
+
 });
