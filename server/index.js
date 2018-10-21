@@ -14,18 +14,6 @@ const swaggerMiddleware = require('./api/routerMiddlewares/swagger/swaggerMiddle
 
 const expressServer = express();
 
-//heroku prevent sleep
-
-setInterval(function () {
-	try {
-		http.get("http://scandegrator.herokuapp.com/");
-	}
-	catch (err) {
-		console.log(err);
-	}
-
-}, 300000); // every 5 minutes (300000)
-
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // expressServer.use('/api', myApi);
 
@@ -52,3 +40,13 @@ expressServer.listen(port, host, (err) => {
 	logger.appStarted(port, prettyHost);
 
 });
+
+setInterval(function () {
+	try {
+		http.get("http://scandegrator.herokuapp.com/");
+	}
+	catch (err) {
+		console.log(err);
+	}
+
+}, 300000); // every 5 minutes (300000)

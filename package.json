@@ -2,10 +2,6 @@
   "name": "scandlines-client",
   "version": "1.0.0",
   "description": "A client-app for scandlines ticket aggregation",
-  "engines": {
-    "npm": ">=3",
-    "node": "10.0.0"
-  },
   "author": "Janusz Jektvik",
   "license": "MIT",
   "scripts": {
