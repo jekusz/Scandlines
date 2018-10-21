@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Node API boilerplate",
+    "title": "Scandegrator backend",
     "version": "v1"
   },
   "servers": [
