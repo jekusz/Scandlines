@@ -47,7 +47,7 @@ export default class ScandlinesPage extends React.PureComponent {
 			<article>
 				<Helmet>
 					<title>Scandegrator</title>
-					<meta name="description" content="A React.js Boilerplate application homepage" />
+					<meta name="description" content="An aggregator of most affordable Scandlines ferry tickets" />
 				</Helmet>
 				<DeparturesRequestForm
 					onLoadDepartures={this.props.onLoadDepartures}
