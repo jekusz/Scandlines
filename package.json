@@ -10,6 +10,7 @@
     "build:clean": "rimraf ./build",
     "dev": "cross-env NODE_ENV=development node server --inspect",
     "start": "node server ",
+    "heroku-postbuild" : "cross-env NODE_ENV=production webpack --config config/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
     "clean": "npm run test:clean && npm run build:clean",
