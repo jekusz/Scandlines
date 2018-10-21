@@ -45,23 +45,6 @@ export default class HomePage extends React.PureComponent {
 						<h2>Start your next react project in seconds</h2>
 						<p>A minimal <i>React-Redux</i> aggregator with all the best practices</p>
 					</section>
-					<section>
-						<h2>Try me!</h2>
-						<form onSubmit={this.props.onSubmitForm}>
-							<label htmlFor="username">
-								Show Github repositories by
-                <span className="at-prefix">@</span>
-								<input
-									id="username"
-									type="text"
-									placeholder="flexdinesh"
-									value={this.props.username}
-									onChange={this.props.onChangeUsername}
-								/>
-							</label>
-						</form>
-						<ReposList {...reposListProps} />
-					</section>
 				</div>
 			</article>
 		);
@@ -78,7 +61,4 @@ HomePage.propTypes = {
 		PropTypes.array,
 		PropTypes.bool,
 	]),
-	onSubmitForm: PropTypes.func,
-	username: PropTypes.string,
-	onChangeUsername: PropTypes.func,
 };
