@@ -14,18 +14,21 @@ const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 	const { from, to, onChange, onBlur, className, ...rest } = props
 
 
+	const onDayChange = day => {
+		setValue(new Date(day.getFullYear(), day.getMonth(), day.getDate()))
+	};
 	return (
 		<React.Fragment>
 			<DayPickerInput
 				inputProps={{ className: "input-field" }}
 				dayPickerProps={{
 					firstDayOfWeek: 1,
-					disabledDays: { 
-						before: (from || new Date()) ,
+					disabledDays: {
+						before: (from || new Date()),
 						after: to
 					}
 				}}
-				onDayChange={day => setValue(day)}
+				onDayChange={onDayChange}
 				onBlur={e => setTouched()} />
 		</React.Fragment>
 	)
@@ -43,7 +46,7 @@ export default class DeparturesRequestForm extends React.PureComponent {
 
 	render() {
 		return (
-			<Form onSubmit={(formValues) => this.props.onLoadDepartures(formValues)} id='scandlines-form'>
+			<Form onSubmit={this.onSubmit()} id='scandlines-form'>
 				{({ formState }) => (
 					<React.Fragment>
 						<label htmlFor="route"><span>Route:</span>
@@ -66,23 +69,33 @@ export default class DeparturesRequestForm extends React.PureComponent {
 							Load
 						</button>
 						{Object.keys(formState.errors).length !== 0 &&
-						<React.Fragment>
-							{Object.values(formState.errors).map((msg, id) => {
-								console.log(formState.errors);
-								return (
-									<div id={id} className="error-msg">
-										<i className="fa fa-times-circle"></i>
-										{msg}
-									</div>
-								)
-							})
-							}
-						</React.Fragment>
+							<React.Fragment>
+								{Object.values(formState.errors).map((msg, id) => {
+									console.log(formState.errors);
+									return (
+										<div id={id} className="error-msg">
+											<i className="fa fa-times-circle"></i>
+											{msg}
+										</div>
+									)
+								})
+								}
+							</React.Fragment>
 						}
 					</React.Fragment>
 				)}
 			</Form>
 		);
+	}
+
+	onSubmit() {
+		return (formValues) => {
+			return this.props.onLoadDepartures({
+				fromDate: moment(formValues.fromDate),
+				toDate: moment(formValues.toDate),
+				route: formValues.route
+			})
+		};
 	}
 }
 

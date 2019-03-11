@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = createStructuredSelector({
   departures: makeSelectDepartures(),
-  loading: makeSelectLoading(),
+  loadingDepartures: makeSelectLoading(),
   error: makeSelectError()
 });
 

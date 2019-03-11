@@ -24,7 +24,7 @@ export default class DeparturesTable extends React.PureComponent {
 				sizeUnit={"px"}
 				size={10}
 				color={'#41ADDD'}
-				loading={this.props.loading}
+				loading={this.props.loadingDepartures}
 			> </BeatLoader>
 		</React.Fragment>)
 	}

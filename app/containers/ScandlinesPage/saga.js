@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_DEPARTURES } from './constants';
-import { departuresBatchLoaded, departuresLoadingError } from './actions';
+import { departuresBatchLoaded, allDeparturesLoaded, departuresLoadingError } from './actions';
 import { createSelector } from 'reselect';
 
 import request from 'utils/request';
@@ -10,11 +10,12 @@ import moment from 'moment'
 
 const clonedeep = require('lodash.clonedeep')
 
-export function* getDepartures(action) {
+export function* 
+getDepartures(action) {
 
 	const formValues = action.formValues
-	const fromDate = formValues.fromDate
-	const toDate = formValues.toDate
+	const fromDate = moment(formValues.fromDate)
+	const toDate = moment(formValues.toDate)
 	const route = formValues.route
 
 	const requestURL = `/api/scandlines`;
@@ -40,13 +41,17 @@ export function* getDepartures(action) {
 				const sortedDepartures = departuresOnResponse.sort((a, b) => moment(a.departureDateTime).isAfter(moment(b.departureDateTime)))
 				const departuresInState = yield select(makeSelectDepartures())
 
-				if (!lastResponse || (currentResponse[0].outboundDepartures[0].arrivalDateTime) != (lastResponse[0].outboundDepartures[0].arrivalDateTime)) {
-					mergedDepartures = [...departuresInState, ...departuresOnResponse]
-					mergedDepartures.forEach(departure => { departure.route = route });
-					yield put(departuresBatchLoaded(mergedDepartures))
+				const currentResponseLastArrivalTime = currentResponse[0].outboundDepartures[currentResponse[0].outboundDepartures.length-1].arrivalDateTime
+				const lastResponseLastArrivalTime = lastResponse && lastResponse[0].outboundDepartures[lastResponse[0].outboundDepartures.length-1].arrivalDateTime
+
+				if (!lastResponse || (currentResponseLastArrivalTime) != (lastResponseLastArrivalTime)) {
 					lastResponse = clonedeep(currentResponse);
 					lastRequestDate = clonedeep(requestDate)
 					requestDate = getNextRequestDate(sortedDepartures, requestDate);
+
+					mergedDepartures = [...departuresInState, ...departuresOnResponse]
+					mergedDepartures.forEach(departure => { departure.route = route });
+					yield put(departuresBatchLoaded(mergedDepartures))
 				}
 				else {
 					lastRequestDate = clonedeep(requestDate)
@@ -58,7 +63,8 @@ export function* getDepartures(action) {
 			}
 		}
 
-		yield put(departuresBatchLoaded(mergedDepartures))
+		const mergedDeparturesFinal = mergedDepartures.filter(d => moment(d.departureDateTime).isBefore(toDate))
+		yield put(allDeparturesLoaded(mergedDeparturesFinal))
 
 	} catch (err) {
 		console.log(err)

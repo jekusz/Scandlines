@@ -47,7 +47,7 @@ export default class ScandlinesPage extends React.PureComponent {
 					<section>
 						<DeparturesTable
 							departures={departures}
-							loading={this.props.loading}
+							loadingDepartures={this.props.loadingDepartures}
 						/>
 					</section>
 				</div>
