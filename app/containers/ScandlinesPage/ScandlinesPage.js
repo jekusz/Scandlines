@@ -1,13 +1,7 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import ReposList from 'components/ReposList';
 import './style.scss';
 import moment from 'moment'
 import DeparturesTable from './Components/DeparturesTable'
@@ -36,13 +30,6 @@ export default class ScandlinesPage extends React.PureComponent {
 			return check ? 1 : !check ? -1 : 0
 		})
 
-		const { loading, error, repos } = this.props;
-		const reposListProps = {
-			loading,
-			error,
-			repos,
-		};
-
 		return (
 			<article>
 				<Helmet>
@@ -58,9 +45,9 @@ export default class ScandlinesPage extends React.PureComponent {
 						<p>A minimal <i>web-based</i> cheap ticket aggregegator</p>
 					</section>
 					<section>
-						<DeparturesTable 
-						departures={departures}
-						loading= {this.props.loading}
+						<DeparturesTable
+							departures={departures}
+							loading={this.props.loading}
 						/>
 					</section>
 				</div>

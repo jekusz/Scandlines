@@ -8,6 +8,8 @@ import { makeSelectRoute } from './selectors';
 import { makeSelectDepartures } from './selectors';
 import moment from 'moment'
 
+const clonedeep = require('lodash.clonedeep')
+
 export function* getDepartures(action) {
 
 	const formValues = action.formValues
@@ -18,45 +20,74 @@ export function* getDepartures(action) {
 	const requestURL = `/api/scandlines`;
 
 	try {
+		let mergedDepartures;
+		let firstRequestDate = moment(fromDate)
 
-		let date = moment(fromDate)
-		while (moment(toDate).isAfter(date)) {
-			var options = {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'route': route,
-					'year': date.toObject().years,
-					'month': date.toObject().months,
-					'day': date.toObject().date,
-					'hour': date.toObject().hours,
-					'minute': date.toObject().minutes,
-					'second': date.toObject().seconds
-				})
+		let lastRequestDate;
+		let lastResponse;
+
+		let requestDate = clonedeep(firstRequestDate)
+
+		while (moment(toDate).isAfter(requestDate)) {
+			if (!lastRequestDate || !requestDate.isSame(lastRequestDate)) {
+
+				var requestOptions = getRequestOptions(requestDate)
+				const currentResponse = yield call(request, requestURL, requestOptions);
+
+				const departuresTree = currentResponse.map(response => response.outboundDepartures)
+				const departuresOnResponse = departuresTree.flatMap(c => c)
+
+				const sortedDepartures = departuresOnResponse.sort((a, b) => moment(a.departureDateTime).isAfter(moment(b.departureDateTime)))
+				const departuresInState = yield select(makeSelectDepartures())
+
+				if (!lastResponse || (currentResponse[0].outboundDepartures[0].arrivalDateTime) != (lastResponse[0].outboundDepartures[0].arrivalDateTime)) {
+					mergedDepartures = [...departuresInState, ...departuresOnResponse]
+					mergedDepartures.forEach(departure => { departure.route = route });
+					yield put(departuresBatchLoaded(mergedDepartures))
+					lastResponse = clonedeep(currentResponse);
+					lastRequestDate = clonedeep(requestDate)
+					requestDate = getNextRequestDate(sortedDepartures, requestDate);
+				}
+				else {
+					lastRequestDate = clonedeep(requestDate)
+					requestDate = requestDate.add(15, 'minutes');
+				}
 			}
-
-			const scandlinesResponse = yield call(request, requestURL, options);
-			const departuresTree = scandlinesResponse.map(response => response.outboundDepartures)
-			const departures = departuresTree.flatMap(c => c)
-			const sortedDepartures = departures.sort((a,b) => moment(a.departureDateTime).isAfter(moment(b.departureDateTime)))
-
-			const lastDeparture = sortedDepartures[sortedDepartures.length - 1]
-			const lastDepartureDateTime = sortedDepartures.length > 0 ? moment(lastDeparture.departureDateTime) : moment(lastDepartureDateTime).add(1, 'hours');
-
-			const alreadyLoadedDepartures = yield select(makeSelectDepartures())
-			const allDepartures = [...alreadyLoadedDepartures, ...departures]
-			allDepartures.forEach(departure => { departure.route = route });
-			yield put(departuresBatchLoaded(allDepartures))
-
-			date = moment(lastDepartureDateTime).add(1,'minutes')
+			else {
+				requestDate = moment(requestDate).add(60, 'minutes')
+			}
 		}
 
-		yield put(departuresBatchLoaded(allDepartures))
+		yield put(departuresBatchLoaded(mergedDepartures))
 
 	} catch (err) {
+		console.log(err)
 		yield put(departuresLoadingError(err));
+	}
+
+	function getNextRequestDate(sortedDepartures, requestDate) {
+		const lastDeparture = sortedDepartures[sortedDepartures.length - 1];
+		const lastDepartureDateTime = sortedDepartures.length > 0 ? moment(lastDeparture.departureDateTime) : moment(lastDepartureDateTime).add(1, 'hours');
+		requestDate = moment(lastDepartureDateTime).add(15, 'minutes');
+		return requestDate;
+	}
+
+	function getRequestOptions(requestDate) {
+		return {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				'route': route,
+				'year': requestDate.toObject().years,
+				'month': requestDate.toObject().months,
+				'day': requestDate.toObject().date,
+				'hour': requestDate.toObject().hours,
+				'minute': requestDate.toObject().minutes,
+				'second': requestDate.toObject().seconds
+			})
+		};
 	}
 }
 
