@@ -51,6 +51,7 @@ getDepartures(action) {
 
 					mergedDepartures = [...departuresInState, ...departuresOnResponse]
 					mergedDepartures.forEach(departure => { departure.route = route });
+					mergedDepartures = mergedDepartures.filter(d => moment(d.departureDateTime).isBefore(toDate))
 					yield put(departuresBatchLoaded(mergedDepartures))
 				}
 				else {

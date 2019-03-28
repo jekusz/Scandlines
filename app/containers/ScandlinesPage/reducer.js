@@ -26,6 +26,7 @@ function scandlinesReducer(state = initialState, action) {
 				.set('departures', action.departures)
 		case DEPARTURES_ALL_LOADED:
 			return state
+				.set('departures', action.departures)
 				.set('loading', false);
 		case LOAD_DEPARTURES_ERROR:
 			return state
