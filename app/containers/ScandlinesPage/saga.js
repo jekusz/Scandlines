@@ -15,7 +15,7 @@ getDepartures(action) {
 
 	const formValues = action.formValues
 	const fromDate = moment(formValues.fromDate)
-	const toDate = moment(formValues.toDate)
+	const toDate = moment(formValues.toDate).add(1, 'days')
 	const route = formValues.route
 
 	const requestURL = `/api/scandlines`;
