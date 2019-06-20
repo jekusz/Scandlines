@@ -11,7 +11,17 @@ Form {
         margin-bottom: 20px;
         font-size: 15px;
         padding-bottom: 3px;
-    }
+	}
+
+	.DayPickerInput, select {
+		background-color: rgba(255, 255, 255, 0.856);
+		font-size: 1.3em;
+	}
+
+	.DayPickerInput .input-field {
+		font-family: Georgia, Times, 'Times New Roman', serif;
+	}
+
     label {
         display: block;
         margin: 0px 0px 15px 0px;

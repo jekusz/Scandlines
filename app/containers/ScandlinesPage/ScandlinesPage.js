@@ -41,7 +41,7 @@ export default class ScandlinesPage extends React.PureComponent {
 				/>
 				<div className="home-page">
 					<section className="centered">
-						<h2>Find your cheapest Scandlines tickets in seconds</h2>
+						<h2>Find your cheapest Scandlines tickets</h2>
 						<p>A minimal <i>web-based</i> cheap ticket aggregegator</p>
 					</section>
 					<section>
