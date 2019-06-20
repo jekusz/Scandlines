@@ -5,7 +5,7 @@
 	"author": "Janusz Jektvik",
 	"license": "MIT",
 	"engines": {
-		"node": ">=10.15.3"
+		"node": "10.15.3"
 	},
 	"scripts": {
 		"prebuild": "npm run build:clean",
@@ -70,7 +70,7 @@
 		"react-router-dom": "^4.3.1",
 		"react-router-redux": "5.0.0-alpha.6",
 		"react-spinners": "^0.4.4",
-		"react-table": "^6.8.6",
+		"react-table": "^6.10.0",
 		"redux": "3.7.2",
 		"redux-immutable": "4.0.0",
 		"redux-saga": "0.16.0",
