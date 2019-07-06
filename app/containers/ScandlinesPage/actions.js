@@ -27,10 +27,9 @@ export function departuresBatchLoaded(departures) {
   };
 }
 
-export function allDeparturesLoaded(departures) {
+export function allDeparturesLoaded() {
   return {
     type: DEPARTURES_ALL_LOADED,
-    departures
   };
 }
 

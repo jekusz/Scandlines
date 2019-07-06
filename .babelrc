@@ -23,6 +23,7 @@
 		},
 		"test": {
 			"plugins": [
+				"babel-plugin-redux-saga",
 				"transform-es2015-modules-commonjs",
 				"dynamic-import-node"
 			]

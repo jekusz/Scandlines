@@ -8,11 +8,9 @@ import './style.scss';
 
 export default class DeparturesTable extends React.PureComponent {
 
-	renderPrice = (row) => {
-		const departure = row.value
+	renderPrice = (price) => {
 		return <div>
-			{departure.availableTickets[0] && departure.availableTickets.sort((a, b) => a.price > b.price)[0].price}
-			{departure.availableTickets[0] && ' €' || 'sold out'}
+			{price.value && price.value + ' €' || 'sold out'}
 		</div>
 	}
 
@@ -77,26 +75,33 @@ export default class DeparturesTable extends React.PureComponent {
 		return url
 	}
 
-	addLinksToDepartures = (departures) => {
+	getDeparturesWithLinks = (departures) => {
 		departures.forEach(departure => {
 			departure.url = this.getUrlForDeparture(departure)
 		});
 		return departures
 	}
 
+	getDeparturesWithCheapestTicket = (departures) => {
+		departures.forEach(departure => {
+				departure.cheapestTicket = departure.availableTickets[0] && departure.availableTickets.sort((a, b) => a.price > b.price)[0].price
+			});
+//		{departure.availableTickets[0] && ' €' || 'sold out'}
+	return departures
+	}
+
 	render() {
-		let { departures, loading } = this.props
-		departures = departures && this.addLinksToDepartures(departures)
+		const { departures, loading } = this.props
+		const departuresWithLinks = departures && this.getDeparturesWithLinks(departures)
+		const decoratedDepartures = departuresWithLinks && this.getDeparturesWithCheapestTicket(departuresWithLinks)
 
 		return (
-			<div>
+			<React.Fragment>
 				<ReactTable
-					data={departures || []}
+					data={decoratedDepartures || []}
 					columns={[
 						{
 							Header: this.renderHeader,
-							Footer: 'yolo',
-							id: 'departureDateTimetest',
 							accessor: d => d.departureDateTime,
 							columns: [
 								{
@@ -117,7 +122,7 @@ export default class DeparturesTable extends React.PureComponent {
 								{
 									Header: 'Lowest Price',
 									id: 'price',
-									accessor: d => d,
+									accessor: d => d.cheapestTicket,
 									Cell: this.renderPrice
 								},
 								{
@@ -132,7 +137,7 @@ export default class DeparturesTable extends React.PureComponent {
 					showPageSizeOptions={false}
 					showPagination={false}
 					minRows={5}
-					pageSize={departures && departures.length > 5 ? departures.length : 5}
+					pageSize={decoratedDepartures && decoratedDepartures.length > 5 ? decoratedDepartures.length : 5}
 					className="-striped -highlight"
 					noDataText='Load departure data to populate table'
 					style={{
@@ -141,7 +146,7 @@ export default class DeparturesTable extends React.PureComponent {
 				>
 				</ReactTable>
 				<br />
-			</div>
+			</React.Fragment>
 		);
 	}
 }
