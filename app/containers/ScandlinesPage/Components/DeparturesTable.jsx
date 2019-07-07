@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 import moment from 'moment'
 
-import ReactTable from "react-table";
-import "react-table/react-table.css";
-import { BeatLoader } from 'react-spinners';
-import './style.scss';
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
+import { BeatLoader } from 'react-spinners'
+import './style.scss'
 
 export default class DeparturesTable extends React.PureComponent {
 
@@ -19,7 +19,7 @@ export default class DeparturesTable extends React.PureComponent {
 			Departures
 			<BeatLoader
 				className='spinner'
-				sizeUnit={"px"}
+				sizeUnit={'px'}
 				size={10}
 				color={'#41ADDD'}
 				loading={this.props.loadingDepartures}
@@ -28,47 +28,47 @@ export default class DeparturesTable extends React.PureComponent {
 	}
 
 	renderAnchor = (row) => {
-		return <a href = {row.value} target="_blank">
+		return <a href={row.value} target="_blank" rel='noreferrer noopener'>
 			Link
 		</a>
 	}
 
 	encodeQuery = (input) => {
-		const keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$-=";
-		if (input == null || input == "") return "";
-		var output = "";
-		var chr1, chr2, chr3;
-		var enc1, enc2, enc3, enc4;
-		var i = 0;
+		const keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$-='
+		if (input == null || input == '') return ''
+		var output = ''
+		var chr1, chr2, chr3
+		var enc1, enc2, enc3, enc4
+		var i = 0
 		do {
-			chr1 = input.charCodeAt(i++);
-			chr2 = input.charCodeAt(i++);
-			chr3 = input.charCodeAt(i++);
-			enc1 = chr1 >> 2;
-			enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-			enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-			enc4 = chr3 & 63;
+			chr1 = input.charCodeAt(i++)
+			chr2 = input.charCodeAt(i++)
+			chr3 = input.charCodeAt(i++)
+			enc1 = chr1 >> 2
+			enc2 = ((chr1 & 3) << 4) | (chr2 >> 4)
+			enc3 = ((chr2 & 15) << 2) | (chr3 >> 6)
+			enc4 = chr3 & 63
 			if (isNaN(chr2)) {
-				enc3 = enc4 = 64;
+				enc3 = enc4 = 64
 			} else if (isNaN(chr3)) {
-				enc4 = 64;
+				enc4 = 64
 			}
-			output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2) + keyStr.charAt(enc3) + keyStr.charAt(enc4);
+			output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2) + keyStr.charAt(enc3) + keyStr.charAt(enc4)
 
-		} while (i < input.length);
-		return output;
+		} while (i < input.length)
+		return output
 	}
 
 	getUrlForDeparture = (departure) => {
-		var query = "isreturn=false"
-        query += "|vehiclecode=CAR"
+		var query = 'isreturn=false'
+		query += '|vehiclecode=CAR'
 
-        query += "|adults=1"
-        query += "|children=0|infants=0"
-        query += "|outroute=" + departure.route
-        query += "|outschedule=" + departure.departureDateTime
-        query += "|homeroute=" + departure.route
-        query += "|homeschedule=" + departure.departureDateTime
+		query += '|adults=1'
+		query += '|children=0|infants=0'
+		query += '|outroute=' + departure.route
+		query += '|outschedule=' + departure.departureDateTime
+		query += '|homeroute=' + departure.route
+		query += '|homeschedule=' + departure.departureDateTime
 		query = this.encodeQuery(query)
 
 		const url = 'https://booking.scandlines.com/TripView?mandator=SAS&lang=da&query=' + query
@@ -78,20 +78,20 @@ export default class DeparturesTable extends React.PureComponent {
 	getDeparturesWithLinks = (departures) => {
 		departures.forEach(departure => {
 			departure.url = this.getUrlForDeparture(departure)
-		});
+		})
 		return departures
 	}
 
 	getDeparturesWithCheapestTicket = (departures) => {
 		departures.forEach(departure => {
-				departure.cheapestTicket = departure.availableTickets[0] && departure.availableTickets.sort((a, b) => a.price > b.price)[0].price
-			});
-//		{departure.availableTickets[0] && ' €' || 'sold out'}
-	return departures
+			departure.cheapestTicket = departure.availableTickets[0] && departure.availableTickets.sort((a, b) => a.price > b.price)[0].price
+		})
+		//		{departure.availableTickets[0] && ' €' || 'sold out'}
+		return departures
 	}
 
 	render() {
-		const { departures, loading } = this.props
+		const { departures } = this.props
 		const departuresWithLinks = departures && this.getDeparturesWithLinks(departures)
 		const decoratedDepartures = departuresWithLinks && this.getDeparturesWithCheapestTicket(departuresWithLinks)
 
@@ -105,7 +105,7 @@ export default class DeparturesTable extends React.PureComponent {
 							accessor: d => d.departureDateTime,
 							columns: [
 								{
-									Header: "Date",
+									Header: 'Date',
 									id: 'data',
 									accessor: d => moment(d.departureDateTime).format('DD-MMM-YYYY')
 								},
@@ -141,13 +141,13 @@ export default class DeparturesTable extends React.PureComponent {
 					className="-striped -highlight"
 					noDataText='Load departure data to populate table'
 					style={{
-						maxHeight: "500px" // This will force the table body to overflow and scroll, since there is not enough room
+						maxHeight: '500px' // This will force the table body to overflow and scroll, since there is not enough room
 					}}
 				>
 				</ReactTable>
 				<br />
 			</React.Fragment>
-		);
+		)
 	}
 }
 

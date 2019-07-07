@@ -19,6 +19,7 @@
 		"clean": "npm run test:clean && npm run build:clean"
 	},
 	"dependencies": {
+		"babel-eslint": "^10.0.2",
 		"babel-loader": "7.1.4",
 		"babel-plugin-dynamic-import-node": "1.2.0",
 		"babel-plugin-transform-class-properties": "^6.24.1",
