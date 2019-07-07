@@ -5,10 +5,7 @@ const GetTickets = require('./GetTickets')
 const ScandlinesController = {
 	get router() {
 		const router = Router()
-
 		router.post('/', this.scandlines)
-    
-
 		return router
 	},
 
@@ -36,7 +33,6 @@ const ScandlinesController = {
 
 	scandlines(request, respond, next) {
 		const getTickets = new GetTickets({})
-		// const { getTickets, scandlinesSerializer } = request;
 		const { SUCCESS, ERROR } = getTickets.outputs
 
 		getTickets
@@ -44,7 +40,6 @@ const ScandlinesController = {
 				respond
 					.status(Status.OK)
 					.json(response)
-				//.json(scandlinesSerializer.serialize(tickets));
 			})
 			.on(ERROR, next)
 
