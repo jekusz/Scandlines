@@ -12,6 +12,7 @@
 		"build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
 		"build:clean": "rimraf ./build",
 		"dev": "cross-env NODE_ENV=development node server --inspect",
+		"dev-prod": "cross-env NODE_ENV=production node server",
 		"start": "node server ",
 		"heroku-postbuild": "cross-env NODE_ENV=production webpack --config config/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
 		"start:prod": "cross-env NODE_ENV=production node server",
@@ -87,6 +88,7 @@
 		"eslint-plugin-react": "^7.14.2",
 		"eventsource-polyfill": "0.9.6",
 		"nodemon": "^1.18.3",
-		"rimraf": "2.6.2"
+		"rimraf": "2.6.2",
+		"webpack-cli": "^3.3.5"
 	}
 }
