@@ -1,10 +1,10 @@
-import React from 'react';
-import './style.scss';
+import React from 'react'
+import './style.scss'
 
 const Footer = () => (
-  <footer>
-    <section>Happy sailing<span role="img" aria-label="heart-emoji">❤️</span></section>
-  </footer>
-);
+	<footer>
+		<section>Happy sailing<span role="img" aria-label="heart-emoji">❤️</span></section>
+	</footer>
+)
 
-export default Footer;
+export default Footer

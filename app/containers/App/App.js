@@ -16,7 +16,7 @@ export default class App extends PureComponent {
 			reactGaInitialised: false,
 		}
 	}
-	componentWillMount = () => {
+	UNSAFE_componentWillMount = () => {
 		if (!this.state.reactGaInitialised) {
 			ReactGA.initialize('UA-126492236-1')
 			ReactGA.pageview('test-init-pageview')

@@ -2,10 +2,10 @@
  * DEVELOPMENT WEBPACK CONFIGURATION
  */
 
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 module.exports = require('./webpack.base.babel')({
 	mode: 'development',
@@ -42,4 +42,4 @@ module.exports = require('./webpack.base.babel')({
 	performance: {
 		hints: false
 	}
-});
+})

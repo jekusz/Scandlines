@@ -1,14 +1,14 @@
-const Status = require('http-status');
+const Status = require('http-status')
 
 /* istanbul ignore next */
-module.exports = (err, req, res, next) => { 
-  const { logger } = req.container.cradle;
+module.exports = (err, req, res) => { 
+	const { logger } = req.container.cradle
 
-  logger.error(err);
+	logger.error(err)
 
-  res.status(Status.INTERNAL_SERVER_ERROR).json({
-    type: 'InternalServerError',
-    message: err.message,
-    stack: err.stack
-  });
-};
+	res.status(Status.INTERNAL_SERVER_ERROR).json({
+		type: 'InternalServerError',
+		message: err.message,
+		stack: err.stack
+	})
+}

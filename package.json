@@ -19,7 +19,6 @@
 		"clean": "npm run test:clean && npm run build:clean"
 	},
 	"dependencies": {
-		"babel-eslint": "^10.0.2",
 		"babel-loader": "7.1.4",
 		"babel-plugin-dynamic-import-node": "1.2.0",
 		"babel-plugin-transform-class-properties": "^6.24.1",
@@ -86,8 +85,10 @@
 		"whatwg-fetch": "2.0.4"
 	},
 	"devDependencies": {
+		"babel-eslint": "^10.0.2",
 		"babel-plugin-redux-saga": "^1.0.2",
 		"enzyme": "^3.3.0",
+		"eslint-plugin-react": "^7.14.2",
 		"eventsource-polyfill": "0.9.6",
 		"nodemon": "^1.18.3",
 		"rimraf": "2.6.2",

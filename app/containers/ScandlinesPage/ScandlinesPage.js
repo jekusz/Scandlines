@@ -14,14 +14,6 @@ export default class ScandlinesPage extends React.PureComponent {
 		}
 	}
 
-	uniqBy(a, key) {
-		var seen = {}
-		return a.filter(function (item) {
-			var k = key(item)
-			return seen.hasOwnProperty(k) ? false : (seen[k] = true)
-		})
-	}
-
 	render() {
 		const departures = this.props.departures
 		departures && departures.sort((a, b) => {

@@ -1,7 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Banner from './images/LOGO.jpg';
-import './style.scss';
+import React from 'react'
+import Banner from './images/LOGO.jpg'
+import './style.scss'
 
 class Header extends React.Component {
 	render() {
@@ -17,8 +16,8 @@ class Header extends React.Component {
 					</Link> */}
 				</div>
 			</div>
-		);
+		)
 	}
 }
 
-export default Header;
+export default Header
