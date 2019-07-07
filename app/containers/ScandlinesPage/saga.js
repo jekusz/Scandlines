@@ -52,7 +52,6 @@ function getRequestOptions(requestDate, route) {
 }
 
 function* processDeparturesPayload({ requestURL, requestOptions }) {
-	console.log({requestURL, requestOptions})
 	if (requestURL == undefined) {
 		debugger
 	}
