@@ -1,10 +1,8 @@
-import { call, put, select, takeLatest, takeEvery, all, fork, join } from 'redux-saga/effects';
-import { LOAD_DEPARTURES, DEPARTURES_BATCH_LOADED } from './constants';
-import { departuresBatchLoaded, departuresLoadingError, allDeparturesLoaded } from './actions';
-import { createSelector } from 'reselect';
-import request from 'utils/request';
-import { makeSelectRoute } from './selectors';
-import { makeSelectDepartures } from './selectors';
+import { call, put, select, takeLatest, fork, join } from 'redux-saga/effects'
+import { LOAD_DEPARTURES } from './constants'
+import { departuresBatchLoaded, departuresLoadingError, allDeparturesLoaded } from './actions'
+import request from 'utils/request'
+import { makeSelectDepartures } from './selectors'
 import moment from 'moment'
 import clonedeep from 'lodash.clonedeep'
 import lodash from 'lodash-es'
@@ -15,7 +13,7 @@ export function* requestDepartures(action) {
 		const fromDate = moment(formValues.fromDate)
 		const toDate = moment(formValues.toDate).add(1, 'days')
 		const route = formValues.route
-		const requestURL = `/api/scandlines`;
+		const requestURL = '/api/scandlines'
 		const firstRequestDate = moment(fromDate)
 
 		let requestDate = clonedeep(firstRequestDate)
@@ -29,7 +27,7 @@ export function* requestDepartures(action) {
 		yield put(allDeparturesLoaded())
 	} catch (err) {
 		console.log(err)
-		yield put(departuresLoadingError(err));
+		yield put(departuresLoadingError(err))
 	}
 }
 
@@ -48,13 +46,10 @@ function getRequestOptions(requestDate, route) {
 			'minute': requestDate.toObject().minutes,
 			'second': requestDate.toObject().seconds
 		})
-	};
+	}
 }
 
 function* processDeparturesPayload({ requestURL, requestOptions }) {
-	if (requestURL == undefined) {
-		debugger
-	}
 	const response = yield call(request, requestURL, requestOptions)
 	const departuresOnResponse = response.flatMap(response => response.outboundDepartures)
 	const departuresInState = yield select(makeSelectDepartures())

@@ -1,31 +1,31 @@
-import React from 'react';
+import React from 'react'
 import moment from 'moment'
-import './style.scss';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import './style.scss'
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import 'react-day-picker/lib/style.css'
 
-import { Form, Text, Scope, Select, Option, asField } from 'informed';
+import { Form, Select, Option, asField } from 'informed'
 
 
 const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 
 	const { value } = fieldState
 	const { setValue, setTouched } = fieldApi
-	const { from, to, onChange, onBlur, className, defaultDate, ...rest } = props
+	const { from, to, defaultDate } = props
 	let valueToRender
 	if (value) {
 		valueToRender = value
 	} else {
-		valueToRender = defaultDate 
+		valueToRender = defaultDate
 	}
 
 	const onDayChange = day => {
 		setValue(new Date(day.getFullYear(), day.getMonth(), day.getDate()))
-	};
+	}
 	return (
 		<React.Fragment>
 			<DayPickerInput
-				inputProps={{ className: "input-field" }}
+				inputProps={{ className: 'input-field' }}
 				dayPickerProps={{
 					firstDayOfWeek: 1,
 					disabledDays: {
@@ -35,16 +35,16 @@ const WrappedDayPicker = asField(({ fieldState, fieldApi, ...props }) => {
 				}}
 				value={valueToRender}
 				onDayChange={onDayChange}
-				onBlur={e => setTouched()} />
+				onBlur={() => setTouched()} />
 		</React.Fragment>
 	)
-});
+})
 
 const validateFrom = (value, values) => {
-	return !values || moment(values.fromDate).isAfter(moment(values.toDate)) ? 'To date must be after From date' : null;
+	return !values || moment(values.fromDate).isAfter(moment(values.toDate)) ? 'To date must be after From date' : null
 }
 
-const validateTo = (value, values) => {
+const validateTo = () => {
 	return null
 }
 
@@ -89,9 +89,9 @@ export default class DeparturesRequestForm extends React.PureComponent {
 						{Object.keys(formState.errors).length !== 0 &&
 							<React.Fragment>
 								{Object.values(formState.errors).map((msg, id) => {
-									console.log(formState.errors);
+									console.log(formState.errors)
 									return (
-										<div id={id} className="error-msg">
+										<div id={id} key={id} className="error-msg">
 											<i className="fa fa-times-circle"></i>
 											{msg}
 										</div>
@@ -103,7 +103,7 @@ export default class DeparturesRequestForm extends React.PureComponent {
 					</React.Fragment>
 				)}
 			</Form>
-		);
+		)
 	}
 
 	onSubmit() {
@@ -113,7 +113,7 @@ export default class DeparturesRequestForm extends React.PureComponent {
 				toDate: moment(formValues.toDate),
 				route: formValues.route
 			})
-		};
+		}
 	}
 }
 

@@ -1,25 +1,24 @@
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import './style.scss';
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import './style.scss'
 import moment from 'moment'
 import DeparturesTable from './Components/DeparturesTable'
-import DeparturesRequestForm from 'containers/ScandlinesPage/Components/DeparturesRequestForm';
+import DeparturesRequestForm from 'containers/ScandlinesPage/Components/DeparturesRequestForm'
 
 export default class ScandlinesPage extends React.PureComponent {
 
 	componentDidMount() {
 		if (this.props.username && this.props.username.trim().length > 0) {
-			this.props.onSubmitForm();
+			this.props.onSubmitForm()
 		}
 	}
 
 	uniqBy(a, key) {
-		var seen = {};
+		var seen = {}
 		return a.filter(function (item) {
-			var k = key(item);
-			return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+			var k = key(item)
+			return seen.hasOwnProperty(k) ? false : (seen[k] = true)
 		})
 	}
 
@@ -52,7 +51,7 @@ export default class ScandlinesPage extends React.PureComponent {
 					</section>
 				</div>
 			</article>
-		);
+		)
 	}
 }
 

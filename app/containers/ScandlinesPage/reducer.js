@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { fromJS } from 'immutable'
 
 import {
 	LOAD_DEPARTURES,
@@ -6,14 +6,14 @@ import {
 	LOAD_DEPARTURES_ERROR,
 	DEPARTURES_ALL_LOADED,
 	ERASE_DEPARTURES
-} from './constants';
+} from './constants'
 
 // The initial state of the App
 const initialState = fromJS({
 	loading: false,
 	error: false,
 	departures: false
-});
+})
 
 function scandlinesReducer(state = initialState, action) {
 	switch (action.type) {
@@ -26,17 +26,17 @@ function scandlinesReducer(state = initialState, action) {
 				.set('departures', action.departures)
 		case DEPARTURES_ALL_LOADED:
 			return state
-				.set('loading', false);
+				.set('loading', false)
 		case LOAD_DEPARTURES_ERROR:
 			return state
 				.set('error', action.error)
-				.set('loading', false);
+				.set('loading', false)
 		case ERASE_DEPARTURES:
 			return state
 				.set('departures', [])
 		default:
-			return state;
+			return state
 	}
 }
 
-export default scandlinesReducer;
+export default scandlinesReducer
