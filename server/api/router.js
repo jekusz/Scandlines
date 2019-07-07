@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const compression = require('compression')
 const methodOverride = require('method-override')
 const controller = require('./utlis/createControllerRoutes')
-const swaggerMiddleware = require('./routerMiddlewares/swagger/swaggerMiddleware')
 const errorHandler = require('./routerMiddlewares/errors/errorHandler')
 // const loggerMiddleware = require('./routerMiddlewares/logging/loggerMiddleware')
 // const statusMonitor = require('express-status-monitor')
@@ -27,8 +26,6 @@ module.exports = () => {
 		.use(cors())
 		.use(bodyParser.json())
 		.use(compression())
-	// .use(containerMiddleware)
-		.use('/docs', swaggerMiddleware)
 
 	/*
    * Add your API routes here
