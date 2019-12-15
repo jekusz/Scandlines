@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
-import { Helmet } from 'react-helmet'
-import { Switch, Route } from 'react-router-dom'
+import React, {PureComponent} from 'react'
+import {Helmet} from 'react-helmet'
+import {Switch, Route} from 'react-router-dom'
 import NotFoundPage from 'containers/NotFoundPage/Loadable'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
@@ -13,25 +13,21 @@ export default class App extends PureComponent {
 		super(props)
 
 		this.state = {
-			reactGaInitialised: false,
+			reactGaInitialised: false
 		}
 	}
 	UNSAFE_componentWillMount = () => {
 		if (!this.state.reactGaInitialised) {
 			ReactGA.initialize('UA-126492236-1')
 			ReactGA.pageview('test-init-pageview')
-			this.setState({ reactGaInitialised: true })
+			this.setState({reactGaInitialised: true})
 		}
 	}
 
 	render() {
-
 		return (
 			<div className="app-wrapper">
-				<Helmet
-					titleTemplate="%s - Scandegrator"
-					defaultTitle="Scandegrator"
-				>
+				<Helmet titleTemplate="%s - Scandegrator" defaultTitle="Scandegrator">
 					<meta name="Scandegrator" content="a scandilines ferry ticket aggregator" />
 				</Helmet>
 				<Header />
