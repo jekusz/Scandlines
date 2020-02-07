@@ -58,4 +58,7 @@
 	"editor.suggestSelection": "first",
 	"workbench.colorTheme": "One Dark Pro",
 	"eslint.autoFixOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
 }
